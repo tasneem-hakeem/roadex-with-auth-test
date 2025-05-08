@@ -392,22 +392,28 @@ class _MyCarsState extends State<MyCars> {
       itemCount: cars.length,
       itemBuilder: (context, index) {
         final car = cars[index];
-        return Card(
-          color: Colors.white,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
-          elevation: 4,
-          margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-          child: ListTile(
-            title: Text(
-              "${car.make} ${car.model}",
-              style: const TextStyle(fontWeight: FontWeight.bold),
+        return GestureDetector(
+          onTap: () {
+            Navigator.pushNamed(context, AppRoutes.map,
+            arguments: car);
+          },
+          child: Card(
+            color: Colors.white,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
             ),
-            subtitle: Text("License: ${car.licensePlate}"),
-            trailing: IconButton(
-              icon: const Icon(Icons.delete, color: Colors.red),
-              onPressed: () => _deleteCar(car.id),
+            elevation: 4,
+            margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            child: ListTile(
+              title: Text(
+                "${car.make} ${car.model}",
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
+              subtitle: Text("License: ${car.licensePlate}"),
+              trailing: IconButton(
+                icon: const Icon(Icons.delete, color: Colors.red),
+                onPressed: () => _deleteCar(car.id),
+              ),
             ),
           ),
         );

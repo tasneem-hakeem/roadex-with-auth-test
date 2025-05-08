@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intro_screens/map_pages/map_screen.dart';
 import 'package:intro_screens/screens/home/providers_screen.dart';
 
 import 'package:intro_screens/widgets/navigation_menu.dart';
@@ -26,6 +27,7 @@ class AppRoutes {
   static const String myCars = '/cars';
   static const String navigationMenu = '/navigationMenu';
   static const String providers = '/providers';
+  static const String map = '/map';
 
   static Map<String, Widget Function(BuildContext)> routes = {
     splash: (context) => SplashScreen(),
@@ -38,5 +40,6 @@ class AppRoutes {
     services: (context) => ServicesScreen(),
     myCars: (context) => CarsScreen(),
     navigationMenu: (context) => NavigationMenu(),
+    map: (context) => MapScreen(),
   };
 }

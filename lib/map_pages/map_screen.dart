@@ -2,13 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:intro_screens/core/models/service_model.dart';
-import 'package:intro_screens/screens/home/providers_screen.dart';
 import 'package:location/location.dart';
 
 import '../core/services/api_service.dart';
-
-
 
 class MapScreen extends StatefulWidget {
   const MapScreen({super.key});
@@ -99,33 +95,46 @@ class _MapScreenState extends State<MapScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(
+            title: Text(
+              "Confirm Your Location",
+              style: TextStyle(
+                color: Theme.of(context).primaryColor,
+              ),
+            ),
+            backgroundColor: Colors.white,
+            elevation: 2,
+            leading: IconButton(
+              onPressed: Navigator.of(context).pop,
+              icon:
+                  Icon(Icons.arrow_back, color: Theme.of(context).primaryColor),
+            )),
         body: Stack(
           children: [
             _currentPosition == null
                 ? Center(
-                child: CircularProgressIndicator(
-                    color: Theme.of(context).primaryColor))
+                    child: CircularProgressIndicator(
+                        color: Theme.of(context).primaryColor))
                 : GoogleMap(
-              onMapCreated: (GoogleMapController controller) {
-                _mapController.complete(controller);
-              },
-              initialCameraPosition:
-              CameraPosition(target: _currentPosition!, zoom: 13),
-              markers: {
-                Marker(
-                  markerId: const MarkerId("currentLocation"),
-                  icon: BitmapDescriptor.defaultMarker,
-                  position: _currentPosition!,
-                ),
-                Marker(
-                  markerId: const MarkerId("targetLocation"),
-                  icon: BitmapDescriptor.defaultMarkerWithHue(
-                      BitmapDescriptor.hueBlue),
-                  position:
-                  LatLng(targetLatitude, targetLongitude),
-                ),
-              },
-            ),
+                    onMapCreated: (GoogleMapController controller) {
+                      _mapController.complete(controller);
+                    },
+                    initialCameraPosition:
+                        CameraPosition(target: _currentPosition!, zoom: 13),
+                    markers: {
+                      Marker(
+                        markerId: const MarkerId("currentLocation"),
+                        icon: BitmapDescriptor.defaultMarker,
+                        position: _currentPosition!,
+                      ),
+                      Marker(
+                        markerId: const MarkerId("targetLocation"),
+                        icon: BitmapDescriptor.defaultMarkerWithHue(
+                            BitmapDescriptor.hueBlue),
+                        position: LatLng(targetLatitude, targetLongitude),
+                      ),
+                    },
+                  ),
             Positioned(
               bottom: 30,
               left: 20,
@@ -138,7 +147,10 @@ class _MapScreenState extends State<MapScreen> {
                 ),
                 child: _isUpdating
                     ? const CircularProgressIndicator(color: Colors.white)
-                    : const Text("Confirm Location", style: TextStyle(color: Colors.white, fontSize: 16),),
+                    : const Text(
+                        "Confirm Location",
+                        style: TextStyle(color: Colors.white, fontSize: 16),
+                      ),
               ),
             ),
           ],
@@ -147,4 +159,3 @@ class _MapScreenState extends State<MapScreen> {
     );
   }
 }
-
